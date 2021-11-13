@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Millet u'miti - Blogg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Boxicon awesome icon -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+  </head>
+  <body>
+
+    <!-- header -->
+    
+    <nav class = "navbar">
+        <div class = "container">
+          <a href = "{% url 'home' %}" class = "navbar-brand">Millet u'miti</a>
+          <div class = "navbar-nav">
+            <a href = "{% url 'home' %}">Bas menyu</a>
+            <a href = "{% url 'articles' %}">Maqalalar</a>
+          </div>
+        </div>
+      </nav>
+    
+    <!-- end of header -->
+
+    <div class = "container">
+        <div class = "title">
+          <h2>Barliq maqalalar</h2>
+        </div>
+        <form method="GET">
+          <input type="text" id="query" name="query" class="textbox" placeholder="Izlew...">
+          <button type = "submit" class="button">
+            <i class='bx bx-search'></i>
+          </button>
+        </form>
+        <div class="article-meta">
+            <a class="back-button" href="{% url 'articles' %}">Maqalalar</a>
+            <span class="tag">{{ tag }}</span>
+        </div>
+
+        <hr>
+
+        <div class = "featured-content">
+            <!-- item -->
+            {% for article in articles %}
+            <div class = "featured-item">
+            <div class = "featured-img">
+                <a href="{{ article.get_absolute_url }}">
+                    <img src = "{{ article.image.url }}" alt = "">
+                    <span><i class='bx bx-calendar-star'></i>{{ article.publish|date:"M Y" }}</span>
+                    <span>{{ article.sub_headline }}</span>
+                </a>
+            </div>
+            <div class = "featured-title">
+              <a href = "{{ article.get_absolute_url }}">{{ article.headline }}</a>
+            </div>
+          </div>
+          <!-- end of item -->
+            {% empty %}
+                <h3>No Article Found...</h3>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+      <div class = "social-links">
+        <a href = "https://www.facebook.com/profile.php?id=100069715657241"><i class='bx bxl-facebook'></i></a>
+        <a href = "https://www.instagram.com/asraar.13/"><i class='bx bxl-instagram'></i></a>
+        <a href = "https://t.me/saparov_asrar"><i class='bx bxl-telegram'></i></a>
+      </div>
+      <span>Millet u'miti - Blogg</span>
+    </footer>
+    <!-- end of footer -->
+    
+    
+  </body>
+</html>
